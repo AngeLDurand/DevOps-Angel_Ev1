@@ -34,6 +34,12 @@ DevOps-Angel/
 ├── .gitignore            # Archivos ignorados por Git
 └── README.md             # Documentación técnica del repositorio
 ```
+### D. Estrategias de Revisión y Control de Versiones
+Para garantizar la calidad y estabilidad del código en nuestro entorno colaborativo, se establecen las siguientes reglas de revisión:
+* **Protección de ramas principales:** Se prohíbe realizar *commits* directos sobre las ramas `main` y `develop`.
+* **Uso obligatorio de Pull Requests (PR):** Toda integración de nuevas funcionalidades (desde `feature/`) o correcciones (desde `hotfix/`) debe realizarse obligatoriamente a través de un PR.
+* **Validación previa al Merge:** Antes de aprobar e integrar cualquier cambio, el código debe someterse a una revisión visual (para detectar conflictos o malas prácticas) y debe aprobar exitosamente las validaciones automáticas configuradas en nuestro pipeline de CI (GitHub Actions).
+* 
 
 ## 3. Trazabilidad del Desarrollo
 A continuación se documenta el flujo de trabajo ejecutado paso a paso en el control de versiones: 
