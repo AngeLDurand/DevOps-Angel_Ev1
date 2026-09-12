@@ -2,7 +2,7 @@
 
 ---
 
-## 1. Justificación de la Estrategia de Ramificación (IE1)
+## 1. Justificación de la Estrategia de Ramificación
 Para este proyecto se seleccionó el modelo **GitFlow**, evaluándolo frente a otras alternativas:
 * **GitFlow (Seleccionado):** Ideal para proyectos con ciclos de lanzamiento estructurados. Utiliza ramas dedicadas (`develop`, `feature/`, `hotfix/`), permitiendo un control estricto antes de llegar a producción (`main`).
 * **GitHub Flow:** Un modelo más ligero y directo donde todo sale de `main` y se fusiona rápidamente mediante Pull Requests. Es útil para despliegues continuos en aplicaciones web o SaaS, pero menos estructurado para entornos académicos con múltiples versiones.
@@ -10,7 +10,7 @@ Para este proyecto se seleccionó el modelo **GitFlow**, evaluándolo frente a o
 
 ---
 
-## 2. Guía de Buenas Prácticas y Convenciones (IE5)
+## 2. Guía de Buenas Prácticas y Convenciones
 
 ### A. Nombre de Ramas
 Se establece la siguiente nomenclatura estándar para mantener el orden en el control de versiones:
@@ -50,3 +50,10 @@ A continuación se documenta el flujo de trabajo ejecutado paso a paso en el con
 * **4. Corrección de emergencia (Rama Hotfix):**
   Para solucionar un inconveniente de forma urgente, creé una rama `hotfix/correccion-urgente` a partir de `main`. Tras aplicar la corrección, realicé el doble Pull Request exigido por GitFlow para actualizar tanto producción como desarrollo.
 
+
+## 4. Automatización y CI/CD
+Para simular un entorno cloud y establecer las bases de la automatización DevOps, se implementó GitHub Actions como herramienta de Integración Continua (CI).
+
+Configuración del Flujo: Se definió un workflow básico dentro de la carpeta .github/workflows configurado para ejecutarse automáticamente ante dos eventos críticos de GitFlow: cada vez que se realiza un push hacia la rama develop y cuando se genera un Pull Request hacia la rama main.
+
+Rol de la herramienta en el flujo real: En un proceso de desarrollo real, esta automatización es la primera línea de defensa. Su rol fundamental dentro del ciclo CI/CD es asegurar la calidad del código, automatizando tareas de validación, pruebas y compilación de forma aislada cada vez que un desarrollador envía cambios. Al contextualizarlo en un entorno real, esto previene que errores humanos lleguen a la rama principal, agiliza el feedback para los programadores (quienes saben inmediatamente si su código falla) y mantiene el repositorio siempre en un estado funcional, preparándolo para una eventual fase de Entrega/Despliegue Continuo (CD).
