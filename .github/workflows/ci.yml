@@ -38,13 +38,13 @@ jobs:
     - name: Clonar el repositorio
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0 # Necesario para que SonarQube analice todo el historial
+        fetch-depth: 0
 
     - name: SonarQube Scan (IE3)
       uses: SonarSource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        SONAR_HOST_URL: https://sonarcloud.io
 
   deploy-simulation:
     needs: security-scan
