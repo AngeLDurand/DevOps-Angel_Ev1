@@ -83,3 +83,8 @@ La arquitectura basada en contenedores asegura la escalabilidad del sistema. Par
 
 ### D. Despliegue Automatizado en Entorno Simulado (IE4)
 Se configuró una entrega continua (CD) que garantiza la trazabilidad desde el desarrollo hasta la producción. El pipeline incluye un paso final (`deploy-simulation`) que levanta automáticamente los contenedores orquestados en el runner de GitHub. Para proteger la estabilidad del sistema, este despliegue automatizado está configurado para ejecutarse **únicamente cuando los cambios llegan a la rama `main`**.
+
+## 6. Declaración del Uso de Inteligencia Artificial
+En cumplimiento con las directrices institucionales sobre el uso ético de la Inteligencia Artificial:
+- **Herramienta utilizada:** Asistencia de IA conversacional.
+- **Aplicación:** Se utilizó como apoyo didáctico para la estructuración de la documentación técnica, revisión de sintaxis en los archivos YAML y validación de buenas prácticas en los pipelines de CI/CD. Todo el análisis crítico, la implementación del código y las decisiones de diseño fueron revisadas, validadas y ejecutadas por el equipo de trabajo.
