@@ -37,11 +37,14 @@ jobs:
     steps:
     - name: Clonar el repositorio
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Necesario para que SonarQube analice todo el historial
 
-    - name: Escaneo de Seguridad básico (Safety)
-      run: |
-        pip install safety
-        safety check -r requirements.txt || echo "Solo advertencia, no bloqueamos el pipeline por ahora"
+    - name: SonarQube Scan (IE3)
+      uses: SonarSource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   deploy-simulation:
     needs: security-scan
