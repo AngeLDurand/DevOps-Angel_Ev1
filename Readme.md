@@ -62,3 +62,24 @@ Para simular un entorno cloud y establecer las bases de la automatización DevOp
 Configuración del Flujo: Se definió un workflow básico dentro de la carpeta .github/workflows configurado para ejecutarse automáticamente ante dos eventos críticos de GitFlow: cada vez que se realiza un push hacia la rama develop y cuando se genera un Pull Request hacia la rama main.
 
 Rol de la herramienta en el flujo real: En un proceso de desarrollo real, esta automatización es la primera línea de defensa. Su rol fundamental dentro del ciclo CI/CD es asegurar la calidad del código, automatizando tareas de validación, pruebas y compilación de forma aislada cada vez que un desarrollador envía cambios. Al contextualizarlo en un entorno real, esto previene que errores humanos lleguen a la rama principal, agiliza el feedback para los programadores (quienes saben inmediatamente si su código falla) y mantiene el repositorio siempre en un estado funcional, preparándolo para una eventual fase de Entrega/Despliegue Continuo (CD).
+
+
+---
+
+## 5. Implementación Avanzada de CI/CD y Contenedores (Evaluación 2)
+
+Para la segunda fase del proyecto, el pipeline DevOps se expandió para incluir orquestación de contenedores, pruebas automatizadas, análisis de seguridad y despliegue continuo simulado.
+
+### A. Uso y Orquestación de Contenedores (IE1 e IE5)
+Para facilitar el trabajo con aplicaciones en la nube de manera eficiente y escalable, el proyecto fue "dockerizado":
+- **Dockerfile:** Se utilizó una imagen base optimizada (`python:3.9-slim`) para empaquetar la aplicación y sus dependencias de forma ligera y segura.
+- **Docker Compose:** Se implementó el archivo `docker-compose.yml` para orquestar la solución, permitiendo levantar y gestionar la aplicación completa con un solo comando, asegurando un funcionamiento estable replicable en cualquier entorno.
+
+### B. Pruebas Automatizadas (IE2)
+Para garantizar la estabilidad y fiabilidad antes de cada despliegue, se integró el framework de pruebas **Pytest** en el pipeline de GitHub Actions. El trabajo (`build-and-test`) se ejecuta automáticamente en cada actualización de código, cumpliendo con las políticas de calidad del proyecto.
+
+### C. Ajuste de Parámetros de Seguridad y Escalabilidad (IE3)
+La arquitectura basada en contenedores asegura la escalabilidad del sistema. Para los requisitos de gobernanza y seguridad, se incorporó un trabajo dedicado de análisis estático (`security-scan`) utilizando la herramienta **Bandit**. Esto permite escanear el código Python en el pipeline en busca de vulnerabilidades antes de permitir un despliegue.
+
+### D. Despliegue Automatizado en Entorno Simulado (IE4)
+Se configuró una entrega continua (CD) que garantiza la trazabilidad desde el desarrollo hasta la producción. El pipeline incluye un paso final (`deploy-simulation`) que levanta automáticamente los contenedores orquestados en el runner de GitHub. Para proteger la estabilidad del sistema, este despliegue automatizado está configurado para ejecutarse **únicamente cuando los cambios llegan a la rama `main`**.
