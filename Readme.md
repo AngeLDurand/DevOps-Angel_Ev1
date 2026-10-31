@@ -39,7 +39,3 @@ El flujo de trabajo en GitHub Actions consta de tres etapas principales que aseg
 - **Build and Test (Pruebas Automatizadas - IE2):** En cada push o Pull Request, el pipeline instala las dependencias y ejecuta pruebas automatizadas utilizando `pytest` para garantizar la estabilidad del código.
 - **Security Scan (Seguridad - IE3):** Se integró la herramienta `bandit` para realizar un análisis de vulnerabilidades en el código Python, cumpliendo con las políticas de seguridad y gobernanza.
 - **Deploy Simulation (Despliegue Trazable - IE4):** Esta etapa está configurada para ejecutarse *únicamente* cuando los cambios llegan a la rama `main`. Simula un despliegue en un entorno cloud levantando los contenedores mediante Docker Compose directamente en el runner de GitHub.
-
-## Evidencias de Ejecución
-
-*(Agrega aquí la captura de pantalla de GitHub Actions mostrando los 3 pasos en verde)*
