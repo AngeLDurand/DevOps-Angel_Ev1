@@ -40,8 +40,8 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@bf55047805174301d2c676239121be5e87a55420
+    - name: SonarQube Scan (IE3)
+      uses: SonarSource/sonarqube-scan-action@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
