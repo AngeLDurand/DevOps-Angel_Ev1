@@ -55,7 +55,7 @@ jobs:
     - name: Simular Despliegue con Docker Compose (IE4 e IE5)
       run: |
         echo "Iniciando despliegue automatizado..."
-        docker-compose up -d --build
+        docker compose up -d --build
         echo "Validando que el contenedor esté corriendo..."
         docker ps
         echo "Despliegue exitoso."
