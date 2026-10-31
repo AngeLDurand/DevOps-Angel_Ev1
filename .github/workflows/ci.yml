@@ -37,19 +37,17 @@ jobs:
     steps:
     - name: Clonar el repositorio
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
-    - name: SonarQube Scan (IE3)
-      uses: SonarSource/sonarqube-scan-action@v5
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: https://sonarcloud.io
+    - name: Configurar Python
+      uses: actions/setup-python@v5
       with:
-        args: >
-          -Dsonar.projectKey=AngelDurand_DevOps-Angel_Ev1
-          -Dsonar.organization=angeldurand
+        python-version: '3.10'
+
+    - name: Instalar escáner de seguridad
+      run: pip install bandit
+
+    - name: Análisis de Seguridad con Bandit (IE3)
+      run: bandit -r . -c "bandit.yaml" --skip B101
 
   deploy-simulation:
     needs: security-scan
