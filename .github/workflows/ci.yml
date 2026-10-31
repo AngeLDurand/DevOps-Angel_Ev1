@@ -37,11 +37,18 @@ jobs:
     steps:
     - name: Clonar el repositorio
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-    - name: Escaneo de Seguridad básico (Safety)
-      run: |
-        pip install safety
-        safety check -r requirements.txt || echo "Solo advertencia, no bloqueamos el pipeline por ahora"
+    - name: SonarQube Scan (IE3)
+      uses: SonarSource/sonarqube-scan-action@bf55047805174301d2c676239121be5e87a55420
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: https://sonarcloud.io
+      with:
+        args: >
+          -Dsonar.projectKey=AngelDurand_DevOps-Angel_Ev1
+          -Dsonar.organization=angeldurand
 
   deploy-simulation:
     needs: security-scan
