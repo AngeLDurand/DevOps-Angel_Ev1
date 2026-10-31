@@ -35,10 +35,10 @@ jobs:
     runs-on: ubuntu-22.04
     
     steps:
-    - name: Clonar el repositorio
-      uses: actions/checkout@v4
+    - name: Configurar Python
+      uses: actions/setup-python@v5
       with:
-        fetch-depth: 0
+        python-version: '3.10'
 
     - name: SonarQube Scan (IE3)
       uses: SonarSource/sonarqube-scan-action@bf55047805174301d2c676239121be5e87a55420
