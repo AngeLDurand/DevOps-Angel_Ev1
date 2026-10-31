@@ -45,6 +45,10 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: https://sonarcloud.io
+      with:
+        args: >
+          -Dsonar.projectKey=AngelDurand_DevOps-Angel_Ev1
+          -Dsonar.organization=angeldurand
 
   deploy-simulation:
     needs: security-scan
