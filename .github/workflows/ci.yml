@@ -8,14 +8,14 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     
     steps:
     - name: Clonar el repositorio
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Configurar Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
 
@@ -30,13 +30,12 @@ jobs:
 
   security-scan:
     needs: build-and-test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     
     steps:
     - name: Clonar el repositorio
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    # Simulamos un análisis de seguridad básico para cumplir con el IE3
     - name: Escaneo de Seguridad básico (Safety)
       run: |
         pip install safety
@@ -44,12 +43,12 @@ jobs:
 
   deploy-simulation:
     needs: security-scan
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' # Solo despliega si es la rama main
+    runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main'
     
     steps:
     - name: Clonar el repositorio
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Simular Despliegue con Docker Compose (IE4 e IE5)
       run: |
