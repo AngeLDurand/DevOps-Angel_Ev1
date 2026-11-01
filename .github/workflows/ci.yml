@@ -17,7 +17,7 @@ jobs:
     - name: Configurar Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
+        python-version: '3.10'
 
     - name: Instalar dependencias
       run: |
@@ -37,18 +37,17 @@ jobs:
     steps:
     - name: Clonar el repositorio
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
-    - name: SonarQube Scan (IE3)
-      uses: SonarSource/sonarqube-scan-action@bf55047805174301d2c676239121be5e87a55420
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: https://sonarcloud.io
+    - name: Configurar Python
+      uses: actions/setup-python@v5
       with:
-        args: >
-          -Dsonar.projectKey=AngelDurand_DevOps-Angel_Ev1
-          -Dsonar.organization=angeldurand
+        python-version: '3.10'
+
+    - name: Instalar escáner de seguridad
+      run: pip install bandit
+
+    - name: Análisis de Seguridad con Bandit (IE3)
+      run: bandit -r . --skip B101
 
   deploy-simulation:
     needs: security-scan
