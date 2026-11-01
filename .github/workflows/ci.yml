@@ -47,7 +47,7 @@ jobs:
       run: pip install bandit
 
     - name: Análisis de Seguridad con Bandit (IE3)
-      run: bandit -r . -c "bandit.yaml" --skip B101
+      run: bandit -r . --skip B101
 
   deploy-simulation:
     needs: security-scan
