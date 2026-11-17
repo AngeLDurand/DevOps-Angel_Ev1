@@ -1,5 +1,12 @@
+develop
 fastapi==0.104.1
 uvicorn==0.24.0.post1
 pytest==7.4.3
 httpx==0.25.1
 pytest-cov==6.0.0
+
+fastapi==0.162.0
+uvicorn==0.54.0
+pytest==9.2.0
+httpx==0.28.1
+main
