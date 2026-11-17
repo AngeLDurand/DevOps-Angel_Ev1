@@ -1,0 +1,12 @@
+.git/
+.github/
+.gitignore
+tests/
+.pytest_cache/
+.coverage
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+README.md
+sonar-project.properties
