@@ -91,6 +91,41 @@ jobs:
         run: bandit -r src/
 
   # ==========================================
+  # JOB 4: SONARCLOUD
+  # ==========================================
+
+  sonarcloud:
+    name: SonarCloud Analysis
+    needs: build-and-test
+    runs-on: ubuntu-22.04
+
+    # El plan gratuito permite analizar main y PR hacia main.
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Descargar informe de cobertura
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: .
+
+      - name: Analizar código y verificar Quality Gate
+        uses: SonarSource/sonarqube-scan-action@v8
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.qualitygate.wait=true
+
+  # ==========================================
   # JOB 3: SIMULACIÓN DE DESPLIEGUE
   # ==========================================
 
@@ -125,37 +160,3 @@ jobs:
       - name: Limpiar contenedores
         if: always()
         run: docker compose down
-
-  # ==========================================
-  # JOB 3: SONARCLOUD
-  # ==========================================
-
-  sonarcloud:
-    name: SonarCloud Analysis
-    needs: build-and-test
-    runs-on: ubuntu-22.04
-
-    permissions:
-      contents: read
-      id-token: write
-
-    steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Descargar informe de cobertura
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-          path: .
-
-      - name: Autenticarse en SonarCloud con OIDC
-        uses: SonarSource/sonarqube-auth-action@v1
-
-      - name: Analizar código y verificar Quality Gate
-        uses: SonarSource/sonarqube-scan-action@v8
-        with:
-          args: >
-            -Dsonar.qualitygate.wait=true
