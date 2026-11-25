@@ -10,12 +10,13 @@ WORKDIR /app
 # Copiar dependencias bloqueadas
 COPY requirements.lock .
 
-# Instalar dependencias verificando versiones y hashes
+# Instalar dependencias verificadas y retirar pip del entorno de ejecución
 RUN python -m pip install \
     --no-cache-dir \
     --only-binary=:all: \
     --require-hashes \
-    -r requirements.lock
+    -r requirements.lock \
+    && python -m pip uninstall --yes pip
 
 # Copiar únicamente el código de la aplicación
 COPY --chown=appuser:appuser src/ ./src/
