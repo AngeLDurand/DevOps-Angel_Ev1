@@ -88,7 +88,41 @@ jobs:
             -r requirements-dev.lock
 
       - name: Analizar código con Bandit
-        run: bandit -r src/
+        run:
+          bandit -r src/
+
+          # ==========================================
+  # JOB: ESCANEO DE SEGURIDAD DE IMAGEN DOCKER
+  # ==========================================
+
+  image-security-scan:
+    name: Docker Image Scan (Trivy)
+    needs: build-and-test
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read
+
+    env:
+      IMAGE_TAG: ${{ github.sha }}
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Construir imagen Docker
+        run: docker compose build api
+
+      - name: Escanear vulnerabilidades con Trivy
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: image
+          image-ref: fastapi_devops:${{ github.sha }}
+          format: table
+          vuln-type: os,library
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
 
   # ==========================================
   # JOB 4: SONARCLOUD
@@ -131,7 +165,7 @@ jobs:
 
   deploy-simulation:
     name: Deploy Simulation
-    needs: [security-scan, sonarcloud]
+    needs: [security-scan, sonarcloud, image-security-scan]
     runs-on: ubuntu-22.04
 
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
