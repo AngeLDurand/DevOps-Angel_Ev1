@@ -1,6 +1,12 @@
 # Imagen base con versión fija de Python
 FROM python:3.15.2-slim
 
+# Aplicar actualización de seguridad para libzstd1
+# Corrige CVE-2026-124851 en Debian 13
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends --only-upgrade libzstd1 \
+    && rm -rf /var/lib/apt/lists/*
+
 # Crear usuario sin privilegios administrativos
 RUN useradd --create-home --system appuser
 
